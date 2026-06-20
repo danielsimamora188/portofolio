@@ -14,6 +14,8 @@ import {
   Send
 } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 // Tipe Data untuk Type Safety
 interface Profile {
   full_name: string

@@ -13,14 +13,23 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false)
   const [errorMsg, setErrorMsg] = useState('')
   const router = useRouter()
-  const supabase = createClient()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setErrorMsg('')
 
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+    if (!supabaseUrl || !supabaseAnonKey) {
+      setErrorMsg('Konfigurasi Supabase belum lengkap. Silakan cek variabel environment di Vercel.')
+      setLoading(false)
+      return
+    }
+
     try {
+      const supabase = createClient()
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
