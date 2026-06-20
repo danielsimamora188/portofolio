@@ -163,275 +163,247 @@ export default async function Home() {
   }
 
   return (
-    <div className="bg-[#121318] text-[#e3e2e6] min-h-screen font-sans selection:bg-[#444756] selection:text-[#d0bcff]">
-      
-      {/* Material You Subtle Ambient Background Glows */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#d0bcff]/5 rounded-full blur-[120px] -z-10 pointer-events-none"></div>
-      <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-[#a8c7fa]/5 rounded-full blur-[100px] -z-10 pointer-events-none"></div>
+    <div className="relative min-h-screen overflow-x-hidden bg-[#0d1117] text-[#eef2ff] selection:bg-[#8b5cf6]/30 selection:text-white">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="absolute left-1/2 top-[-120px] h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-[#8b5cf6]/10 blur-[120px]" />
+        <div className="absolute right-[-80px] top-1/3 h-[300px] w-[300px] rounded-full bg-[#06b6d4]/10 blur-[120px]" />
+        <div className="absolute bottom-0 left-0 h-[250px] w-[250px] rounded-full bg-[#f472b6]/10 blur-[120px]" />
+      </div>
 
-      {/* Floating Pill Navigation Bar (M3 Design) */}
-      <div className="fixed top-4 left-0 right-0 z-50 px-4 flex justify-center">
-        <header className="w-full max-w-2xl backdrop-blur-xl bg-[#1a1b23]/80 border border-[#2f303a] rounded-full shadow-lg px-6 py-3 flex items-center justify-between transition-all duration-300 hover:border-[#444756]">
-          <Link href="/" className="font-bold text-[#d0bcff] hover:opacity-90 transition-opacity tracking-tight">
+      <div className="fixed left-0 right-0 top-4 z-50 px-4">
+        <header className="mx-auto flex max-w-5xl items-center justify-between rounded-full border border-white/10 bg-[#0f172a]/75 px-4 py-3 shadow-2xl shadow-black/20 backdrop-blur-xl">
+          <Link href="/" className="text-sm font-semibold tracking-[0.3em] text-[#c4b5fd] uppercase">
             Daniel.S
           </Link>
-          <nav className="flex items-center gap-5 text-sm font-medium text-[#c7c6ca]">
-            <a href="#about" className="hover:text-[#e3e2e6] transition-colors relative py-1">Tentang</a>
-            <a href="#experience" className="hover:text-[#e3e2e6] transition-colors relative py-1">Karir</a>
-            <a href="#projects" className="hover:text-[#e3e2e6] transition-colors relative py-1">Proyek</a>
-            <a href="#contact" className="hover:text-[#e3e2e6] transition-colors relative py-1">Kontak</a>
-            <Link 
-              href="/login" 
-              className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#2f303a] hover:bg-[#3b3d4f] text-xs text-[#e3e2e6] transition-all duration-200 active:scale-95"
-            >
-              <Lock size={12} className="text-[#a8c7fa]" />
-              Admin
-            </Link>
+          <nav className="hidden items-center gap-5 text-sm text-slate-300 md:flex">
+            <a href="#about" className="transition hover:text-white">Tentang</a>
+            <a href="#experience" className="transition hover:text-white">Karir</a>
+            <a href="#projects" className="transition hover:text-white">Proyek</a>
+            <a href="#contact" className="transition hover:text-white">Kontak</a>
           </nav>
+          <Link
+            href="/login"
+            className="inline-flex items-center gap-1.5 rounded-full bg-white/5 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-white/10"
+          >
+            <Lock size={12} className="text-[#c4b5fd]" />
+            Admin
+          </Link>
         </header>
       </div>
 
-      {/* Database Warning Banner */}
       {dbError && (
-        <div className="pt-20">
-          <div className="bg-[#ffd9e2] border border-[#ffb3c4] text-[#ba1a1a] text-xs py-2 px-4 text-center rounded-xl max-w-xl mx-auto my-4 font-medium animate-pulse">
+        <div className="pt-24">
+          <div className="mx-auto my-4 max-w-3xl rounded-2xl border border-rose-500/20 bg-rose-500/10 px-4 py-3 text-center text-sm text-rose-100">
             ⚠️ Mengalami kendala koneksi dengan Supabase. Menampilkan data fallback (cadangan).
           </div>
         </div>
       )}
 
-      {/* Main Content Containers */}
-      <main className="max-w-4xl mx-auto px-6 pt-28 pb-20 flex flex-col gap-16">
+      <main className="relative mx-auto max-w-6xl px-4 pb-20 pt-24 sm:px-6 lg:px-8">
+        <section
+          id="about"
+          className="relative overflow-hidden rounded-[36px] border border-white/10 bg-gradient-to-br from-[#111827] via-[#0f172a] to-[#111827] p-8 shadow-2xl shadow-black/30 sm:p-10 lg:p-12"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(139,92,246,0.12),transparent_18%),radial-gradient(circle_at_bottom_left,rgba(34,211,238,0.07),transparent_15%)]" />
+          <div className="relative grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+            <div className="flex flex-col gap-6">
+              <div className="inline-flex w-fit items-center gap-2 rounded-full border border-[#8b5cf6]/20 bg-[#8b5cf6]/10 px-3.5 py-1.5 text-xs font-semibold text-[#d8b4fe]">
+                <Sparkles size={14} className="text-[#f5d0fe]" />
+                Open for Opportunities
+              </div>
 
-        {/* Hero / About Section (Material Card Layout) */}
-        <section id="about" className="p-8 sm:p-12 rounded-[32px] bg-[#1a1b23] border border-[#2f303a] flex flex-col md:flex-row items-center gap-10 transition-all duration-300 hover:shadow-xl hover:border-[#3b3d4f] group">
-          <div className="flex-1 flex flex-col items-start gap-5">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#2f303a] text-xs text-[#a8c7fa] font-semibold border border-[#3b3d4f]">
-              <Sparkles size={13} className="text-[#d0bcff] animate-pulse" />
-              Open for Opportunities
-            </div>
-            
-            <h1 className="text-4xl sm:text-5xl font-black tracking-tight text-[#e3e2e6] leading-tight">
-              Halo, Saya <span className="text-[#d0bcff]">{profile.full_name}</span>
-            </h1>
-            
-            <h2 className="text-lg sm:text-xl font-bold text-[#c7c6ca]">
-              {profile.title}
-            </h2>
-            
-            <p className="text-[#c7c6ca] leading-relaxed text-base sm:text-md whitespace-pre-line">
-              {profile.bio}
-            </p>
+              <div className="space-y-3">
+                <h1 className="text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+                  Halo, Saya <span className="bg-gradient-to-r from-[#d8b4fe] to-[#67e8f9] bg-clip-text text-transparent">{profile.full_name}</span>
+                </h1>
+                <p className="text-lg font-semibold text-slate-200 sm:text-xl">
+                  {profile.title}
+                </p>
+              </div>
 
-            <div className="flex flex-wrap gap-3 text-sm text-[#c7c6ca] mt-2">
-              {profile.location && (
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#121318] border border-[#2f303a]">
-                  <MapPin size={14} className="text-[#a8c7fa]" />
-                  {profile.location}
-                </div>
-              )}
-              {profile.email && (
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#121318] border border-[#2f303a]">
-                  <Mail size={14} className="text-[#a8c7fa]" />
-                  {profile.email}
-                </div>
-              )}
-            </div>
+              <p className="max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
+                {profile.bio}
+              </p>
 
-            <div className="flex flex-wrap items-center gap-4 mt-6">
-              <a 
-                href="#contact" 
-                className="px-6 py-3 rounded-full bg-[#d0bcff] hover:bg-[#b59ff5] text-[#381e72] font-bold text-sm flex items-center gap-2 shadow-md transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:scale-[1.03] active:scale-[0.97]"
-              >
-                Hubungi Saya
-                <ArrowRight size={16} />
-              </a>
-              
-              {profile.resume_url && (
-                <a 
-                  href={profile.resume_url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="px-6 py-3 rounded-full bg-[#2f303a] hover:bg-[#3b3d4f] border border-[#3b3d4f] text-[#e3e2e6] font-bold text-sm transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:scale-[1.03] active:scale-[0.97]"
+              <div className="flex flex-wrap gap-2">
+                {profile.location && (
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-slate-200">
+                    <MapPin size={15} className="text-[#67e8f9]" />
+                    {profile.location}
+                  </span>
+                )}
+                {profile.email && (
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-slate-200">
+                    <Mail size={15} className="text-[#67e8f9]" />
+                    {profile.email}
+                  </span>
+                )}
+              </div>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#c4b5fd] to-[#67e8f9] px-6 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-cyan-500/10 transition hover:scale-[1.02]"
                 >
-                  Unduh CV
+                  Hubungi Saya
+                  <ArrowRight size={16} />
                 </a>
-              )}
+                {profile.resume_url && (
+                  <a
+                    href={profile.resume_url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+                  >
+                    Unduh CV
+                  </a>
+                )}
+                <div className="flex items-center gap-2">
+                  {profile.linkedin_url && (
+                    <a href={profile.linkedin_url} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/10 hover:text-white">
+                      <svg className="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                        <rect width="4" height="12" x="2" y="9" />
+                        <circle cx="4" cy="4" r="2" />
+                      </svg>
+                    </a>
+                  )}
+                  {profile.github_url && (
+                    <a href={profile.github_url} target="_blank" rel="noreferrer" aria-label="GitHub" className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-slate-200 transition hover:bg-white/10 hover:text-white">
+                      <svg className="h-[18px] w-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                        <path d="M9 18c-4.51 2-5-2-7-2" />
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
 
-              <div className="flex items-center gap-3">
-                {profile.linkedin_url && (
-                  <a 
-                    href={profile.linkedin_url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-3 rounded-full bg-[#2f303a] hover:bg-[#3b3d4f] border border-[#3b3d4f] text-[#c7c6ca] hover:text-[#d0bcff] transition-all duration-200 hover:scale-[1.05] active:scale-[0.95]"
-                    aria-label="LinkedIn"
-                  >
-                    <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-                      <rect width="4" height="12" x="2" y="9" />
-                      <circle cx="4" cy="4" r="2" />
-                    </svg>
-                  </a>
-                )}
-                {profile.github_url && (
-                  <a 
-                    href={profile.github_url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="p-3 rounded-full bg-[#2f303a] hover:bg-[#3b3d4f] border border-[#3b3d4f] text-[#c7c6ca] hover:text-[#d0bcff] transition-all duration-200 hover:scale-[1.05] active:scale-[0.95]"
-                    aria-label="GitHub"
-                  >
-                    <svg className="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-                      <path d="M9 18c-4.51 2-5-2-7-2" />
-                    </svg>
-                  </a>
-                )}
+              <div className="grid gap-3 pt-2 sm:grid-cols-3">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Focus</p>
+                  <p className="mt-1 text-sm font-semibold text-white">Frontend & Product</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Experience</p>
+                  <p className="mt-1 text-sm font-semibold text-white">2+ Years</p>
+                </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Stack</p>
+                  <p className="mt-1 text-sm font-semibold text-white">Next.js / React</p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Profile Image (Material Large Rounded Shape) */}
-          <div className="relative flex-shrink-0 w-52 h-52 sm:w-60 sm:h-60 rounded-[48px] overflow-hidden bg-[#2a2b36] border border-[#3b3d4f] flex items-center justify-center shadow-md transition-all duration-500 hover:rounded-[36px] hover:scale-102 group">
-            {profile.avatar_url ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img 
-                src={profile.avatar_url} 
-                alt={profile.full_name} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            ) : (
-              <div className="w-full h-full bg-gradient-to-tr from-[#3b3d4f] to-[#1a1b23] flex flex-col items-center justify-center p-6 text-center">
-                <div className="w-20 h-20 rounded-full bg-[#d0bcff] text-[#381e72] flex items-center justify-center text-3xl font-extrabold shadow-inner mb-3">
-                  {profile.full_name.split(' ').map(n => n[0]).join('')}
+            <div className="relative mx-auto flex w-full max-w-sm items-center justify-center">
+              <div className="absolute inset-0 rounded-[32px] bg-gradient-to-br from-[#c4b5fd]/20 via-transparent to-[#67e8f9]/10 blur-2xl" />
+              <div className="relative w-full rounded-[32px] border border-white/10 bg-gradient-to-br from-[#0f172a] to-[#111827] p-4 shadow-2xl shadow-black/30">
+                <div className="relative aspect-square overflow-hidden rounded-[26px] bg-[#0b1120]">
+                  {profile.avatar_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={profile.avatar_url} alt={profile.full_name} className="h-full w-full object-cover" />
+                  ) : (
+                    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-br from-[#1e1b4b] via-[#0f172a] to-[#0b1120] text-center">
+                      <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-[#d8b4fe] to-[#67e8f9] text-3xl font-black text-slate-950">
+                        {profile.full_name.split(' ').map((n) => n[0]).join('')}
+                      </div>
+                      <span className="text-xs uppercase tracking-[0.4em] text-slate-300">Portfolio</span>
+                    </div>
+                  )}
                 </div>
-                <span className="text-xs font-mono text-[#c7c6ca] uppercase tracking-widest">Daniel Simamora</span>
               </div>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#121318]/50 via-transparent to-transparent opacity-40"></div>
+            </div>
           </div>
         </section>
 
-        {/* Experience Section */}
-        <section id="experience" className="flex flex-col gap-8">
+        <section id="experience" className="mt-10 flex flex-col gap-6">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-2xl bg-[#2a2b36] border border-[#3b3d4f] text-[#d0bcff]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8b5cf6]/20 to-[#67e8f9]/10 text-[#d8b4fe]">
               <Briefcase size={20} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-[#e3e2e6]">Pengalaman Kerja & Belajar</h2>
-              <p className="text-[#c7c6ca] text-xs">Riwayat karir dan kompetensi akademis</p>
+              <h2 className="text-2xl font-bold text-white">Pengalaman & Pembelajaran</h2>
+              <p className="text-sm text-slate-400">Riwayat karir dan pengalaman yang membentuk skill saya</p>
             </div>
           </div>
 
-          <div className="grid gap-6">
+          <div className="space-y-4">
             {experiences.map((exp) => (
-              <div 
-                key={exp.id} 
-                className="p-6 rounded-[28px] bg-[#1a1b23] border border-[#2f303a] hover:border-[#3b3d4f] hover:shadow-lg transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:scale-[1.01]"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-4">
-                  <div>
-                    <h3 className="text-lg font-bold text-[#e3e2e6] hover:text-[#d0bcff] transition-colors duration-200">
-                      {exp.role}
-                    </h3>
-                    <p className="text-sm font-semibold text-[#a8c7fa]">{exp.company}</p>
+              <div key={exp.id} className="relative rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
+                <div className="absolute left-6 top-0 h-full w-px bg-gradient-to-b from-[#8b5cf6] to-transparent" />
+                <div className="relative pl-8">
+                  <span className="absolute left-[-6px] top-2 h-3 w-3 rounded-full bg-[#67e8f9]" />
+                  <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">{exp.role}</h3>
+                      <p className="text-sm font-medium text-[#c4b5fd]">{exp.company}</p>
+                    </div>
+                    <span className="inline-flex rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-slate-300">
+                      {formatDate(exp.start_date)} — {exp.is_current ? 'Sekarang' : exp.end_date ? formatDate(exp.end_date) : ''}
+                    </span>
                   </div>
-                  <span className="px-3.5 py-1.5 rounded-full bg-[#2f303a] text-xs text-[#c7c6ca] font-mono w-fit border border-[#3b3d4f]">
-                    {formatDate(exp.start_date)} — {exp.is_current ? 'Sekarang' : exp.end_date ? formatDate(exp.end_date) : ''}
-                  </span>
+                  {exp.location && (
+                    <div className="mt-3 flex items-center gap-2 text-sm text-slate-400">
+                      <MapPin size={14} className="text-[#67e8f9]" />
+                      {exp.location}
+                    </div>
+                  )}
+                  {exp.description && (
+                    <p className="mt-4 text-sm leading-7 text-slate-300">{exp.description}</p>
+                  )}
                 </div>
-
-                {exp.location && (
-                  <div className="flex items-center gap-1.5 text-xs text-[#c7c6ca] mb-4">
-                    <MapPin size={12} className="text-[#a8c7fa]" />
-                    {exp.location}
-                  </div>
-                )}
-
-                {exp.description && (
-                  <p className="text-sm text-[#c7c6ca] leading-relaxed whitespace-pre-line border-t border-[#2f303a]/60 pt-4">
-                    {exp.description}
-                  </p>
-                )}
               </div>
             ))}
           </div>
         </section>
 
-        {/* Projects Section */}
-        <section id="projects" className="flex flex-col gap-8">
+        <section id="projects" className="mt-10 flex flex-col gap-6">
           <div className="flex items-center gap-3">
-            <div className="p-3 rounded-2xl bg-[#2a2b36] border border-[#3b3d4f] text-[#d0bcff]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8b5cf6]/20 to-[#67e8f9]/10 text-[#d8b4fe]">
               <FolderGit2 size={20} />
             </div>
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-[#e3e2e6]">Proyek Unggulan</h2>
-              <p className="text-[#c7c6ca] text-xs">Aplikasi dan sistem yang dikembangkan sendiri</p>
+              <h2 className="text-2xl font-bold text-white">Proyek Unggulan</h2>
+              <p className="text-sm text-slate-400">Aplikasi dan karya yang pernah saya bangun</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid gap-6 md:grid-cols-2">
             {projects.map((project) => (
-              <div 
-                key={project.id} 
-                className="group p-6 rounded-[28px] bg-[#1a1b23] border border-[#2f303a] hover:border-[#3b3d4f] hover:bg-[#20212a] hover:shadow-xl transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:scale-[1.02] flex flex-col justify-between"
-              >
-                <div>
-                  {/* Visual Project Header */}
-                  <div className="w-full h-40 rounded-2xl bg-[#121318] border border-[#2f303a] overflow-hidden flex items-center justify-center mb-5 relative">
-                    {project.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img 
-                        src={project.image_url} 
-                        alt={project.title} 
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-103"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 bg-gradient-to-br from-[#381e72]/10 to-[#004a77]/10 flex flex-col items-center justify-center p-4">
-                        <FolderGit2 size={32} className="text-[#c7c6ca] mb-2 transition-transform duration-300 group-hover:scale-110" />
-                        <span className="text-[10px] tracking-widest font-mono text-[#c7c6ca] uppercase">Source Code</span>
+              <article key={project.id} className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 transition hover:border-[#8b5cf6]/30 hover:bg-white/[0.08]">
+                <div className="relative h-48 overflow-hidden bg-[#0a1020]">
+                  {project.image_url ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={project.image_url} alt={project.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+                  ) : (
+                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-[#0f172a] via-[#111827] to-[#1e1b4b]">
+                      <div className="flex flex-col items-center gap-2 text-slate-300">
+                        <FolderGit2 size={36} className="text-[#c4b5fd]" />
+                        <span className="text-xs uppercase tracking-[0.35em] text-slate-400">Portfolio Project</span>
                       </div>
-                    )}
-                  </div>
-
-                  <h3 className="text-lg font-bold text-[#e3e2e6] group-hover:text-[#d0bcff] transition-colors duration-200 mb-2">
-                    {project.title}
-                  </h3>
-                  
-                  {project.description && (
-                    <p className="text-sm text-[#c7c6ca] leading-relaxed mb-6">
-                      {project.description}
-                    </p>
+                    </div>
                   )}
                 </div>
-
-                <div>
-                  {/* Tech Tags (M3 Pill style) */}
+                <div className="space-y-4 p-6">
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                    {project.description && (
+                      <p className="mt-2 text-sm leading-7 text-slate-300">{project.description}</p>
+                    )}
+                  </div>
                   {project.tags && project.tags.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5 mb-6">
+                    <div className="flex flex-wrap gap-2">
                       {project.tags.map((tag, idx) => (
-                        <span 
-                          key={idx} 
-                          className="px-3 py-1 rounded-full bg-[#2a2b36] border border-[#3b3d4f] text-xs font-semibold text-[#a8c7fa]"
-                        >
+                        <span key={idx} className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-slate-300">
                           {tag}
                         </span>
                       ))}
                     </div>
                   )}
-
-                  {/* Actions Links */}
-                  <div className="flex items-center gap-4 pt-4 border-t border-[#2f303a]">
+                  <div className="flex items-center gap-4 border-t border-white/10 pt-4">
                     {project.github_url && (
-                      <a 
-                        href={project.github_url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-[#c7c6ca] hover:text-[#d0bcff] transition-colors flex items-center gap-1.5 text-xs font-bold"
-                      >
-                        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <a href={project.github_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-sm text-slate-300 transition hover:text-white">
+                        <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                           <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
                           <path d="M9 18c-4.51 2-5-2-7-2" />
                         </svg>
@@ -439,51 +411,36 @@ export default async function Home() {
                       </a>
                     )}
                     {project.live_url && (
-                      <a 
-                        href={project.live_url}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-[#a8c7fa] hover:text-[#c2e7ff] transition-colors flex items-center gap-1 text-xs font-bold"
-                      >
+                      <a href={project.live_url} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 text-sm text-[#67e8f9] transition hover:text-cyan-300">
                         <ExternalLink size={14} />
-                        Demo Live
+                        Live Demo
                       </a>
                     )}
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </section>
 
-        {/* Contact Section (M3 Soft Container style) */}
-        <section id="contact" className="p-8 sm:p-12 rounded-[32px] bg-[#1d1e27] border border-[#2f303a] text-center flex flex-col gap-6 items-center">
-          <div className="p-3 rounded-full bg-[#2a2b36] border border-[#3b3d4f] text-[#d0bcff] w-fit">
+        <section id="contact" className="mt-10 rounded-[32px] border border-white/10 bg-gradient-to-br from-[#111827] to-[#0f172a] p-8 text-center shadow-2xl shadow-black/30 sm:p-10">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#8b5cf6]/20 to-[#67e8f9]/10 text-[#d8b4fe]">
             <Send size={20} />
           </div>
-          <h2 className="text-3xl font-black text-[#e3e2e6]">Mari Berkolaborasi!</h2>
-          <p className="text-[#c7c6ca] text-sm sm:text-md max-w-lg leading-relaxed">
-            Punya ide proyek, diskusi freelance, atau sekadar ingin menyapa? Hubungi saya kapan saja dan saya akan merespon sesegera mungkin.
+          <h2 className="mt-4 text-3xl font-bold text-white">Mari Berkolaborasi</h2>
+          <p className="mt-3 text-sm leading-7 text-slate-300 sm:text-base">
+            Punya ide proyek, butuh partner freelance, atau sekadar ingin ngobrol tentang teknologi? Saya senang mendengar dari Anda.
           </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-4 w-full sm:w-auto">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
             {profile.email && (
-              <a 
-                href={`mailto:${profile.email}`}
-                className="flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#2f303a] hover:bg-[#3b3d4f] border border-[#3b3d4f] text-[#e3e2e6] hover:text-[#d0bcff] font-bold text-sm transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] justify-center w-full sm:w-auto"
-              >
+              <a href={`mailto:${profile.email}`} className="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
                 <Mail size={16} />
                 {profile.email}
               </a>
             )}
             {profile.linkedin_url && (
-              <a 
-                href={profile.linkedin_url}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#d0bcff] hover:bg-[#b59ff5] text-[#381e72] font-bold text-sm transition-all duration-300 hover:scale-[1.03] active:scale-[0.97] justify-center w-full sm:w-auto"
-              >
-                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <a href={profile.linkedin_url} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#c4b5fd] to-[#67e8f9] px-5 py-3 text-sm font-semibold text-slate-950 transition hover:scale-[1.02]">
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
                   <rect width="4" height="12" x="2" y="9" />
                   <circle cx="4" cy="4" r="2" />
@@ -493,21 +450,15 @@ export default async function Home() {
             )}
           </div>
         </section>
-
       </main>
 
-      {/* Footer Bar */}
-      <footer className="border-t border-[#2f303a] bg-[#121318] py-8 text-[#c7c6ca] text-xs">
-        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <footer className="border-t border-white/10 bg-[#0b1020] py-8">
+        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 text-center text-sm text-slate-400 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} {profile.full_name}. Hak Cipta Dilindungi.</p>
-          <div className="flex items-center gap-5">
-            <a href="#about" className="hover:text-[#e3e2e6] transition-colors">Kembali ke Atas</a>
-            <span className="text-[#2f303a]">|</span>
-            <Link 
-              href="/login" 
-              className="flex items-center gap-1 hover:text-[#e3e2e6] transition-colors"
-            >
-              <Lock size={10} className="text-[#a8c7fa]" />
+          <div className="flex items-center justify-center gap-4">
+            <a href="#about" className="transition hover:text-white">Kembali ke Atas</a>
+            <Link href="/login" className="inline-flex items-center gap-1 transition hover:text-white">
+              <Lock size={12} className="text-[#c4b5fd]" />
               Login Admin
             </Link>
           </div>
