@@ -43,22 +43,90 @@ create table if not exists public.projects (
   updated_at timestamptz default now()
 );
 
+create table if not exists public.education (
+  id uuid primary key default gen_random_uuid(),
+  school text not null,
+  degree text not null,
+  period text,
+  description text,
+  display_order integer default 0,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+create table if not exists public.skills (
+  id uuid primary key default gen_random_uuid(),
+  category text not null,
+  name text not null,
+  value integer default 0,
+  display_order integer default 0,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
 -- Pastikan row-level security tidak mengganggu read di public site
 alter table public.profiles enable row level security;
 alter table public.experiences enable row level security;
 alter table public.projects enable row level security;
+alter table public.education enable row level security;
+alter table public.skills enable row level security;
 
-create policy if not exists "Allow public read access to profiles"
+drop policy if exists "Allow public read access to profiles" on public.profiles;
+drop policy if exists "Allow public read access to experiences" on public.experiences;
+drop policy if exists "Allow public read access to projects" on public.projects;
+drop policy if exists "Allow public read access to education" on public.education;
+drop policy if exists "Allow public read access to skills" on public.skills;
+
+drop policy if exists "Allow authenticated users full access to profiles" on public.profiles;
+drop policy if exists "Allow authenticated users full access to experiences" on public.experiences;
+drop policy if exists "Allow authenticated users full access to projects" on public.projects;
+drop policy if exists "Allow authenticated users full access to education" on public.education;
+drop policy if exists "Allow authenticated users full access to skills" on public.skills;
+
+create policy "Allow public read access to profiles"
   on public.profiles for select
   using (true);
 
-create policy if not exists "Allow public read access to experiences"
+create policy "Allow public read access to experiences"
   on public.experiences for select
   using (true);
 
-create policy if not exists "Allow public read access to projects"
+create policy "Allow public read access to projects"
   on public.projects for select
   using (true);
+
+create policy "Allow public read access to education"
+  on public.education for select
+  using (true);
+
+create policy "Allow public read access to skills"
+  on public.skills for select
+  using (true);
+
+create policy "Allow authenticated users full access to profiles"
+  on public.profiles for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+
+create policy "Allow authenticated users full access to experiences"
+  on public.experiences for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+
+create policy "Allow authenticated users full access to projects"
+  on public.projects for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+
+create policy "Allow authenticated users full access to education"
+  on public.education for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
+
+create policy "Allow authenticated users full access to skills"
+  on public.skills for all
+  using (auth.role() = 'authenticated')
+  with check (auth.role() = 'authenticated');
 
 -- Data demo / default untuk portfolio
 insert into public.profiles (
@@ -142,4 +210,53 @@ values
     '#',
     2
   )
+on conflict do nothing;
+
+insert into public.education (
+  school,
+  degree,
+  period,
+  description,
+  display_order
+)
+values
+  (
+    'Universitas / Sekolah Tinggi',
+    'Program Studi / Jurusan',
+    '2022 — 2025',
+    'Fokus pada pengembangan perangkat lunak, sistem informasi, dan kemampuan analisis problem solving digital.',
+    1
+  ),
+  (
+    'SMK / SMA',
+    'Bidang yang relevan dengan teknologi',
+    '2020 — 2022',
+    'Dasar-dasar pemrograman, logika komputer, dan minat besar terhadap pengembangan web serta teknologi modern.',
+    2
+  )
+on conflict do nothing;
+
+insert into public.skills (
+  category,
+  name,
+  value,
+  display_order
+)
+values
+  ('Frontend', 'Next.js', 93, 1),
+  ('Frontend', 'React', 90, 2),
+  ('Frontend', 'TypeScript', 88, 3),
+  ('Frontend', 'Tailwind CSS', 91, 4),
+  ('Backend & Database', 'Node.js', 82, 5),
+  ('Backend & Database', 'Express', 80, 6),
+  ('Backend & Database', 'PostgreSQL', 78, 7),
+  ('Backend & Database', 'Supabase', 85, 8),
+  ('UI/UX & Design', 'Figma', 84, 9),
+  ('UI/UX & Design', 'Wireframing', 80, 10),
+  ('UI/UX & Design', 'Design System', 86, 11),
+  ('UI/UX & Design', 'Responsive UI', 92, 12),
+  ('Tools & Workflow', 'Git', 90, 13),
+  ('Tools & Workflow', 'GitHub', 88, 14),
+  ('Tools & Workflow', 'Vercel', 84, 15),
+  ('Tools & Workflow', 'VS Code', 91, 16)
 on conflict do nothing;
