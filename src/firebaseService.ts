@@ -14,6 +14,8 @@ import {
 import { db, auth } from './firebase';
 import { Project, Experience, Biodata, SkillCategory, ServiceItem } from './types';
 import { personalData, projectsData, experienceData, skillsData, servicesData } from './data';
+import { isSupabaseConnected } from './supabase';
+import * as supabaseService from './supabaseService';
 
 const PROJECTS_COLLECTION = 'projects';
 const MESSAGES_COLLECTION = 'contacts';
@@ -101,6 +103,9 @@ export async function initializeProjectsIfNeeded() {
 
 // Fetch all projects (sorted by createdAt or custom ordering)
 export async function getProjects(): Promise<Project[]> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.getProjectsFromSupabase();
+  }
   try {
     await initializeProjectsIfNeeded();
     const q = collection(db, PROJECTS_COLLECTION);
@@ -127,6 +132,9 @@ export async function getProjects(): Promise<Project[]> {
 
 // Add a new project
 export async function addProjectInFirestore(project: Omit<Project, 'id'> & { id?: string }): Promise<string> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.addProjectInSupabase(project);
+  }
   const id = project.id || `proj-${Date.now()}`;
   try {
     const docRef = doc(db, PROJECTS_COLLECTION, id);
@@ -148,6 +156,9 @@ export async function addProjectInFirestore(project: Omit<Project, 'id'> & { id?
 
 // Update an existing project
 export async function updateProjectInFirestore(id: string, updates: Partial<Omit<Project, 'id'>>): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.updateProjectInSupabase(id, updates);
+  }
   try {
     const docRef = doc(db, PROJECTS_COLLECTION, id);
     await updateDoc(docRef, {
@@ -161,6 +172,9 @@ export async function updateProjectInFirestore(id: string, updates: Partial<Omit
 
 // Delete a project
 export async function deleteProjectFromFirestore(id: string): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.deleteProjectFromSupabase(id);
+  }
   try {
     const docRef = doc(db, PROJECTS_COLLECTION, id);
     await deleteDoc(docRef);
@@ -180,6 +194,9 @@ export interface ContactMessage {
 }
 
 export async function addContactMessage(name: string, email: string, message: string): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.addContactMessageInSupabase(name, email, message);
+  }
   try {
     const colRef = collection(db, MESSAGES_COLLECTION);
     await addDoc(colRef, {
@@ -196,6 +213,9 @@ export async function addContactMessage(name: string, email: string, message: st
 
 // Retrieve message submissions (sorted with newest first)
 export async function getContactMessages(): Promise<ContactMessage[]> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.getContactMessagesFromSupabase();
+  }
   try {
     const colRef = collection(db, MESSAGES_COLLECTION);
     const snapshot = await getDocs(colRef);
@@ -221,6 +241,9 @@ export async function getContactMessages(): Promise<ContactMessage[]> {
 
 // Update message status (e.g. read / unread)
 export async function updateMessageStatus(id: string, status: 'unread' | 'read'): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.updateMessageStatusInSupabase(id, status);
+  }
   try {
     const docRef = doc(db, MESSAGES_COLLECTION, id);
     await updateDoc(docRef, { status });
@@ -231,6 +254,9 @@ export async function updateMessageStatus(id: string, status: 'unread' | 'read')
 
 // Delete message
 export async function deleteMessageFromFirestore(id: string): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.deleteMessageFromSupabase(id);
+  }
   try {
     const docRef = doc(db, MESSAGES_COLLECTION, id);
     await deleteDoc(docRef);
@@ -269,6 +295,9 @@ export async function initializeExperiencesIfNeeded() {
 
 // Fetch all experiences
 export async function getExperiences(): Promise<Experience[]> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.getExperiencesFromSupabase();
+  }
   try {
     await initializeExperiencesIfNeeded();
     const q = collection(db, EXPERIENCES_COLLECTION);
@@ -295,6 +324,9 @@ export async function getExperiences(): Promise<Experience[]> {
 
 // Add experience
 export async function addExperienceInFirestore(exp: Omit<Experience, 'id'> & { id?: string }): Promise<string> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.addExperienceInSupabase(exp);
+  }
   const id = exp.id || `exp-${Date.now()}`;
   try {
     const docRef = doc(db, EXPERIENCES_COLLECTION, id);
@@ -316,6 +348,9 @@ export async function addExperienceInFirestore(exp: Omit<Experience, 'id'> & { i
 
 // Update experience
 export async function updateExperienceInFirestore(id: string, updates: Partial<Omit<Experience, 'id'>>): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.updateExperienceInSupabase(id, updates);
+  }
   try {
     const docRef = doc(db, EXPERIENCES_COLLECTION, id);
     await updateDoc(docRef, {
@@ -329,6 +364,9 @@ export async function updateExperienceInFirestore(id: string, updates: Partial<O
 
 // Delete experience
 export async function deleteExperienceFromFirestore(id: string): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.deleteExperienceFromSupabase(id);
+  }
   try {
     const docRef = doc(db, EXPERIENCES_COLLECTION, id);
     await deleteDoc(docRef);
@@ -372,6 +410,9 @@ export async function initializeBiodataIfNeeded(): Promise<Biodata> {
 
 // Fetch Biodata from Firestore
 export async function getBiodataFromFirestore(): Promise<Biodata> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.getBiodataFromSupabase();
+  }
   try {
     const docRef = doc(db, BIODATA_COLLECTION, BIODATA_DOC_ID);
     const docSnap = await getDoc(docRef);
@@ -404,6 +445,9 @@ export async function getBiodataFromFirestore(): Promise<Biodata> {
 
 // Update Biodata in Firestore
 export async function updateBiodataInFirestore(updates: Partial<Biodata>): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.updateBiodataInSupabase(updates);
+  }
   try {
     const docRef = doc(db, BIODATA_COLLECTION, BIODATA_DOC_ID);
     await updateDoc(docRef, {
@@ -459,6 +503,9 @@ export async function initializeServicesIfNeeded(): Promise<ServiceItem[]> {
 }
 
 export async function getServices(): Promise<ServiceItem[]> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.getServicesFromSupabase();
+  }
   try {
     const q = query(collection(db, SERVICES_COLLECTION), orderBy('order', 'asc'));
     const querySnapshot = await getDocs(q);
@@ -485,6 +532,9 @@ export async function getServices(): Promise<ServiceItem[]> {
 }
 
 export async function addServiceInFirestore(service: Omit<ServiceItem, 'id'>): Promise<string> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.addServiceInSupabase(service);
+  }
   try {
     const qSnapshot = await getDocs(collection(db, SERVICES_COLLECTION));
     const order = service.order !== undefined ? service.order : qSnapshot.size;
@@ -500,6 +550,9 @@ export async function addServiceInFirestore(service: Omit<ServiceItem, 'id'>): P
 }
 
 export async function updateServiceInFirestore(id: string, updates: Partial<ServiceItem>): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.updateServiceInSupabase(id, updates);
+  }
   try {
     const docRef = doc(db, SERVICES_COLLECTION, id);
     await updateDoc(docRef, {
@@ -512,6 +565,9 @@ export async function updateServiceInFirestore(id: string, updates: Partial<Serv
 }
 
 export async function deleteServiceFromFirestore(id: string): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.deleteServiceFromSupabase(id);
+  }
   try {
     const docRef = doc(db, SERVICES_COLLECTION, id);
     await deleteDoc(docRef);
@@ -561,6 +617,9 @@ export async function initializeSkillsIfNeeded(): Promise<SkillCategory[]> {
 }
 
 export async function getSkillsCategories(): Promise<SkillCategory[]> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.getSkillsCategoriesFromSupabase();
+  }
   try {
     const q = query(collection(db, SKILLS_COLLECTION), orderBy('order', 'asc'));
     const querySnapshot = await getDocs(q);
@@ -585,6 +644,9 @@ export async function getSkillsCategories(): Promise<SkillCategory[]> {
 }
 
 export async function addSkillCategoryInFirestore(category: Omit<SkillCategory, 'id'>): Promise<string> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.addSkillCategoryInSupabase(category);
+  }
   try {
     const qSnapshot = await getDocs(collection(db, SKILLS_COLLECTION));
     const order = category.order !== undefined ? category.order : qSnapshot.size;
@@ -600,6 +662,9 @@ export async function addSkillCategoryInFirestore(category: Omit<SkillCategory, 
 }
 
 export async function updateSkillCategoryInFirestore(id: string, updates: Partial<SkillCategory>): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.updateSkillCategoryInSupabase(id, updates);
+  }
   try {
     const docRef = doc(db, SKILLS_COLLECTION, id);
     await updateDoc(docRef, {
@@ -611,7 +676,11 @@ export async function updateSkillCategoryInFirestore(id: string, updates: Partia
   }
 }
 
+// Delete skill category
 export async function deleteSkillCategoryFromFirestore(id: string): Promise<void> {
+  if (isSupabaseConnected()) {
+    return await supabaseService.deleteSkillCategoryFromSupabase(id);
+  }
   try {
     const docRef = doc(db, SKILLS_COLLECTION, id);
     await deleteDoc(docRef);
