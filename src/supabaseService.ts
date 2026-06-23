@@ -408,7 +408,7 @@ export async function initializeSkillsInSupabase(): Promise<boolean> {
 // Projects
 export async function getProjectsFromSupabase(): Promise<Project[]> {
   const supabase = getSupabase();
-  if (!supabase) return [];
+  if (!supabase) return projectsData;
   await initializeProjectsInSupabase();
   const { data, error } = await supabase.from('projects').select('*').order('created_at', { ascending: true });
   if (error) throw error;
@@ -473,7 +473,7 @@ export async function deleteMessageFromSupabase(id: string): Promise<void> {
 // Experiences
 export async function getExperiencesFromSupabase(): Promise<Experience[]> {
   const supabase = getSupabase();
-  if (!supabase) return [];
+  if (!supabase) return experienceData;
   await initializeExperiencesInSupabase();
   const { data, error } = await supabase.from('experiences').select('*').order('created_at', { ascending: true });
   if (error) throw error;
@@ -525,7 +525,7 @@ export async function updateBiodataInSupabase(updates: Partial<Biodata>): Promis
 // Services
 export async function getServicesFromSupabase(): Promise<ServiceItem[]> {
   const supabase = getSupabase();
-  if (!supabase) return [];
+  if (!supabase) return servicesData;
   await initializeServicesInSupabase();
   const { data, error } = await supabase.from('services').select('*').order('order', { ascending: true });
   if (error) throw error;
@@ -560,7 +560,7 @@ export async function deleteServiceFromSupabase(id: string): Promise<void> {
 // Skills
 export async function getSkillsCategoriesFromSupabase(): Promise<SkillCategory[]> {
   const supabase = getSupabase();
-  if (!supabase) return [];
+  if (!supabase) return skillsData;
   await initializeSkillsInSupabase();
   const { data, error } = await supabase.from('skills').select('*').order('order', { ascending: true });
   if (error) throw error;
